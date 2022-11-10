@@ -18,23 +18,24 @@ class Country {
   List<String>? timezone;
   String? flags;
   String? coatOfArms;
-  Country({
-    this.name,
-    this.independence,
-    this.unMember,
-    this.currency,
-    this.dialCode,
-    this.capital,
-    this.region,
-    this.area,
-    this.map,
-    this.population,
-    this.gini,
-    this.drivingSide,
-    this.timezone,
-    this.flags,
-    this.coatOfArms,
-  });
+  List<String>? continent;
+  Country(
+      {this.name,
+      this.independence,
+      this.unMember,
+      this.currency,
+      this.dialCode,
+      this.capital,
+      this.region,
+      this.area,
+      this.map,
+      this.population,
+      this.gini,
+      this.drivingSide,
+      this.timezone,
+      this.flags,
+      this.coatOfArms,
+      this.continent});
 
   Country copyWith({
     String? name,
@@ -52,6 +53,7 @@ class Country {
     List<String>? timezone,
     String? flags,
     String? coatOfArms,
+    List<String>? continent,
   }) {
     return Country(
       name: name ?? this.name,
@@ -69,6 +71,7 @@ class Country {
       timezone: timezone ?? this.timezone,
       flags: flags ?? this.flags,
       coatOfArms: coatOfArms ?? this.coatOfArms,
+      continent: continent ?? this.continent,
     );
   }
 
@@ -89,27 +92,28 @@ class Country {
       'timezone': timezone,
       'flags': flags,
       'coatOfArms': coatOfArms,
+      'continent': continent
     };
   }
 
   factory Country.fromMap(Map<String, dynamic> map) {
     return Country(
-      name: map['name']['common'],
-      independence: map['independent'],
-      unMember: map['unMember'],
-      currency: map['currencies']['MRU']['name'],
-      dialCode: map['idd']['root'],
-      capital: List<String>.from(map['capital']),
-      region: map['region'],
-      area: map['area']?.toDouble(),
-      map: map['maps']['googleMaps'],
-      population: map['population']?.toInt(),
-      gini: map['gini']?.toInt(),
-      drivingSide: map['car']['side'],
-      timezone: map['timezones'],
-      flags: map['flags']['svg'],
-      coatOfArms: map['coatOfArms']['svg'],
-    );
+        name: map['name']['common'],
+        independence: map['independent'],
+        unMember: map['unMember'],
+        currency: map['currencies']['MRU']['name'],
+        dialCode: map['idd']['root'],
+        capital: List<String>.from(map['capital']),
+        region: map['region'],
+        area: map['area']?.toDouble(),
+        map: map['maps']['googleMaps'],
+        population: map['population']?.toInt(),
+        gini: map['gini']?.toInt(),
+        drivingSide: map['car']['side'],
+        timezone: map['timezones'],
+        flags: map['flags']['svg'],
+        coatOfArms: map['coatOfArms']['svg'],
+        continent: map['continents']);
   }
 
   String toJson() => json.encode(toMap());
@@ -119,7 +123,7 @@ class Country {
 
   @override
   String toString() {
-    return 'Country(name: $name, independence: $independence, unMember: $unMember, currency: $currency, dialCode: $dialCode, capital: $capital, region: $region, area: $area, map: $map, population: $population, gini: $gini, drivingSide: $drivingSide, timezone: $timezone, flags: $flags, coatOfArms: $coatOfArms)';
+    return 'Country(name: $name, independence: $independence, unMember: $unMember, currency: $currency, dialCode: $dialCode, capital: $capital, region: $region, area: $area, map: $map, population: $population, gini: $gini, drivingSide: $drivingSide, timezone: $timezone, flags: $flags, coatOfArms: $coatOfArms, continent: $continent)';
   }
 
   @override
@@ -141,6 +145,7 @@ class Country {
         other.drivingSide == drivingSide &&
         listEquals(other.timezone, timezone) &&
         other.flags == flags &&
+        listEquals(other.continent, continent) &&
         other.coatOfArms == coatOfArms;
   }
 
@@ -160,6 +165,7 @@ class Country {
         drivingSide.hashCode ^
         timezone.hashCode ^
         flags.hashCode ^
+        continent.hashCode ^
         coatOfArms.hashCode;
   }
 }

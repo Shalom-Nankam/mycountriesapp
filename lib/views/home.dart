@@ -1,3 +1,4 @@
+import 'package:countriesapp/providers/country_provider.dart';
 import 'package:countriesapp/widgets/home_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,8 +16,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    final countryProvider =
+        Provider.of<CountryProvider>(context, listen: false);
+    countryProvider.getAllCountries();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final changeTheme = Provider.of<ThemeProvider>(context);
+    final countryProvider = Provider.of<CountryProvider>(
+      context,
+    );
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 24.w),
@@ -120,7 +132,11 @@ class _HomeState extends State<Home> {
                         size: 20,
                       ))
                 ],
-              )
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              const SizedBox()
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:countriesapp/providers/country_provider.dart';
 import 'package:countriesapp/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,7 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+    ChangeNotifierProvider<CountryProvider>(create: (_) => CountryProvider()),
   ], child: const MyApp()));
 }
 
