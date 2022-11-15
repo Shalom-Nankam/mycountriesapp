@@ -1,8 +1,11 @@
+import 'package:countriesapp/models/country_model.dart';
 import 'package:countriesapp/providers/country_provider.dart';
 import 'package:countriesapp/widgets/home_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/theme_provider.dart';
@@ -15,20 +18,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late final Future<List<Country>> countries;
+
   @override
   void initState() {
-    final countryProvider =
-        Provider.of<CountryProvider>(context, listen: false);
-    countryProvider.getAllCountries();
     super.initState();
+
+    countries =
+        Provider.of<CountryProvider>(context, listen: false).getAllCountries();
   }
 
   @override
   Widget build(BuildContext context) {
     final changeTheme = Provider.of<ThemeProvider>(context);
-    final countryProvider = Provider.of<CountryProvider>(
-      context,
-    );
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 24.w),
@@ -136,7 +139,31 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 16.h,
               ),
-              const SizedBox()
+              SizedBox(
+                  height: 500.h,
+                  width: double.infinity.w,
+                  child: FutureBuilder(
+                    future: countries,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return SpinKitFadingFour(
+                          color: changeTheme.darkTheme
+                              ? Colors.white
+                              : Colors.black,
+                        );
+                      } else {
+                        GroupedListView(
+                          elements: snapshot.data!,
+                          groupBy: (element) => element.name![0],
+                          groupSeparatorBuilder: (value) => Text(value),
+                        );
+                      }
+                      return SpinKitFadingFour(
+                        color:
+                            changeTheme.darkTheme ? Colors.white : Colors.black,
+                      );
+                    },
+                  ))
             ],
           ),
         ),

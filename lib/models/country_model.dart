@@ -48,7 +48,6 @@ class Country {
     double? area,
     String? map,
     int? population,
-    int? gini,
     String? drivingSide,
     List<String>? timezone,
     String? flags,
@@ -66,7 +65,6 @@ class Country {
       area: area ?? this.area,
       map: map ?? this.map,
       population: population ?? this.population,
-      gini: gini ?? this.gini,
       drivingSide: drivingSide ?? this.drivingSide,
       timezone: timezone ?? this.timezone,
       flags: flags ?? this.flags,
@@ -87,7 +85,6 @@ class Country {
       'area': area,
       'map': map,
       'population': population,
-      'gini': gini,
       'drivingSide': drivingSide,
       'timezone': timezone,
       'flags': flags,
@@ -105,10 +102,9 @@ class Country {
         dialCode: map['idd']['root'],
         capital: List<String>.from(map['capital']),
         region: map['region'],
-        area: map['area']?.toDouble(),
+        area: map['area'],
         map: map['maps']['googleMaps'],
-        population: map['population']?.toInt(),
-        gini: map['gini']?.toInt(),
+        population: map['population'],
         drivingSide: map['car']['side'],
         timezone: map['timezones'],
         flags: map['flags']['svg'],
@@ -123,7 +119,7 @@ class Country {
 
   @override
   String toString() {
-    return 'Country(name: $name, independence: $independence, unMember: $unMember, currency: $currency, dialCode: $dialCode, capital: $capital, region: $region, area: $area, map: $map, population: $population, gini: $gini, drivingSide: $drivingSide, timezone: $timezone, flags: $flags, coatOfArms: $coatOfArms, continent: $continent)';
+    return 'Country(name: $name, independence: $independence, unMember: $unMember, currency: $currency, dialCode: $dialCode, capital: $capital, region: $region, area: $area, map: $map, population: $population, drivingSide: $drivingSide, timezone: $timezone, flags: $flags, coatOfArms: $coatOfArms, continent: $continent)';
   }
 
   @override
@@ -141,7 +137,6 @@ class Country {
         other.area == area &&
         other.map == map &&
         other.population == population &&
-        other.gini == gini &&
         other.drivingSide == drivingSide &&
         listEquals(other.timezone, timezone) &&
         other.flags == flags &&
@@ -161,7 +156,6 @@ class Country {
         area.hashCode ^
         map.hashCode ^
         population.hashCode ^
-        gini.hashCode ^
         drivingSide.hashCode ^
         timezone.hashCode ^
         flags.hashCode ^

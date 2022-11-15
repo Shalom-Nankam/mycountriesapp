@@ -11,9 +11,14 @@ class Apiservices {
       final firstData =
           await doGetFullRequest('https://restcountries.com/v3.1/all');
       if (isConnectionSuccesful(firstData.statusCode)) {
+        print('got data');
         final decodedBody =
             jsonDecode(firstData.body).cast<Map<String, dynamic>>();
-        countries = decodedBody.map((json) => Country.fromMap(json)).toList();
+
+        print('decoded data');
+        countries =
+            decodedBody.map<Country>((json) => Country.fromMap(json)).toList();
+        print('finished');
       }
     } on Exception {
       throw Exception('There was an error');

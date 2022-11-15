@@ -4,19 +4,35 @@ import 'package:flutter/material.dart';
 
 class CountryProvider with ChangeNotifier {
   final Apiservices _apiservices = Apiservices();
-  bool _isFetching = false;
 
-  bool get isFetching => _isFetching;
-  List<Country> allCountries = [];
+  bool _isFiltered = false;
+
+  bool get isFiltered => _isFiltered;
+
   List<Country> filteredCountries = [];
 
-  void getAllCountries() async {
-    _isFetching = !_isFetching;
-    notifyListeners();
-    allCountries = await _apiservices.getCountries();
+  Future<List<Country>> getAllCountries() async {
+    List<Country> allCountries = await _apiservices.getCountries();
     if (allCountries.isNotEmpty) {
-      _isFetching = !_isFetching;
       notifyListeners();
     }
+    return allCountries;
+  }
+
+  void getFilteredCountries(
+      [List<String>? filterCountry, List<String>? filterTimeZone]) {
+    _isFiltered = !_isFiltered;
+    notifyListeners();
+
+    // for (Country element in allCountries) {
+    //   if(element.continent != null){
+    //     for(var continent in element.continent){}
+    //   }
+
+    // if (filterCountry!.contains(element.continent) ||
+    //     filterTimeZone!.contains(element.timezone)) {
+    //   filteredCountries.add(element);
+    // }
+    // }
   }
 }

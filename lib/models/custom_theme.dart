@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTheme {
   static ThemeData appTheme(bool dark, BuildContext context) => ThemeData(
@@ -20,9 +21,12 @@ class CustomTheme {
       buttonTheme: Theme.of(context).buttonTheme.copyWith(
           colorScheme:
               dark ? const ColorScheme.dark() : const ColorScheme.light()),
-      appBarTheme: const AppBarTheme(
-        elevation: 0.0,
-      ),
+      appBarTheme: AppBarTheme(
+          elevation: 0.0,
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarBrightness: dark ? Brightness.dark : Brightness.light,
+              statusBarIconBrightness:
+                  dark ? Brightness.dark : Brightness.light)),
       textSelectionTheme: TextSelectionThemeData(
           selectionColor: dark ? Colors.white : Colors.black),
       textButtonTheme: TextButtonThemeData(
