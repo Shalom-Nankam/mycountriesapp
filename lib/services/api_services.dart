@@ -15,10 +15,11 @@ class Apiservices {
         final decodedBody =
             jsonDecode(firstData.body).cast<Map<String, dynamic>>();
 
-        print('decoded data');
+        print(decodedBody);
         countries =
             decodedBody.map<Country>((json) => Country.fromMap(json)).toList();
         print('finished');
+        return countries;
       }
     } on Exception {
       throw Exception('There was an error');

@@ -94,6 +94,7 @@ class Country {
   }
 
   factory Country.fromMap(Map<String, dynamic> map) {
+    print('started conversion');
     return Country(
         name: map['name']['common'],
         independence: map['independent'],
